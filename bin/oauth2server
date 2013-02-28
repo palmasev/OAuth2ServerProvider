@@ -2,9 +2,9 @@
 <?php
 (@include_once __DIR__ . '/../vendor/autoload.php') || @include_once __DIR__ . '/../../../autoload.php';
 
-use Palma\Silex\OAuth2ServerProvider\Console\Instaler;
+use Palma\Silex\OAuth2ServerProvider\Console\Installer;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
-$application->add(new Instaler());
+$application->add(new Installer());
 $application->run();
