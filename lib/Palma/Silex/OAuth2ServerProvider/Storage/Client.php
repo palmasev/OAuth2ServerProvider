@@ -20,15 +20,15 @@ class Client implements ClientInterface
 	{
 		$qb = $this->connection->createQueryBuilder();
 		$qb
-			->select('client.id')
+			->select('client.id, client.secret, endpoint.redirect_uri, client.name')
 			->from('oauth_clients', 'client')
+			->leftJoin('client', 'oauth_client_endpoints', 'endpoint', 'endpoint.client_id=client.id')
 			->where('client.id = :client_id')
 			->setParameter('client_id', $clientId);
 
 		if ($redirectUri!=null) {
 			$qb
-				->leftJoin('client', 'oauth_client_endpoints', 'endpoint', 'endpoint.client_id=client.id')
-				->andWhere('endpoing.redirect_uri = :redirect_uri')
+				->andWhere('endpoint.redirect_uri = :redirect_uri')
 				->setParameter('redirect_uri', $redirect_uri);
 		}
 		if ($clientSecret!=null) {
@@ -42,6 +42,6 @@ class Client implements ClientInterface
 		}
 
 		$query = $qb->getSql();
-		return $qb->execute()->fetchColumn();
+		return $qb->execute()->fetchArray();
 	}
 }
