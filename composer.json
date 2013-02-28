@@ -1,0 +1,11 @@
+{
+	"require": {
+		"lncd/OAuth2": "*",
+		"silex/silex" : "1.0.*@dev",
+		"doctrine/dbal": "2.3.*",
+		"symfony/console": "2.0.*@dev"
+	},
+	"autoload": {
+        "psr-0": { "Palma\\Silex\\OAuth2ServerProvider": "lib/" }
+    }
+}
