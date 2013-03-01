@@ -82,7 +82,7 @@ class DatabaseGenerator
   										array('id'),
   										array('onDelete' => 'CASCADE', 'onUpdate' => 'CASCADE')
   										);
-		$sessionScopesTable->setPrimaryKey(array("id"));
+		  $sessionScopesTable->setPrimaryKey(array("id"));
 
   		$synchronizer = new SingleDatabaseSynchronizer($this->conn);
   		return $synchronizer->getUpdateSchema($this->schema, true);
@@ -91,7 +91,7 @@ class DatabaseGenerator
 	function run()
 	{
 		$synchronizer = new SingleDatabaseSynchronizer($this->conn);
-  		$synchronizer->updateSchema($this->schema, true);
+  	$synchronizer->updateSchema($this->schema, true);
 
 	}
 }

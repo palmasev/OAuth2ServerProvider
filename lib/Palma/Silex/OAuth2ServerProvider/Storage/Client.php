@@ -1,16 +1,21 @@
 <?php
+namespace Palma\Silex\OAuth2ServerProvider\Storage;
+
 use OAuth2\Storage\ClientInterface;
 
-class Client implements ClientInterface
+class Client extends AbstractStorage implements ClientInterface
 {
-	protected $connection;
-
-	public function __construct($connection)
-	{
-		$this->connection = $connection;
-	}
-
 	/**
+	 * <code>
+	 * Array
+	 * (
+	 *     [client_id] => (string) The client ID
+	 *     [client secret] => (string) The client secret
+	 *     [redirect_uri] => (string) The redirect URI used in this request
+	 *     [name] => (string) The name of the client
+	 * )
+	 * </code>
+	 * 
 	 * @param  string     $clientId     The client's ID
 	 * @param  string     $clientSecret The client's secret (default = "null")
 	 * @param  string     $redirectUri  The client's redirect URI (default = "null")
@@ -20,7 +25,7 @@ class Client implements ClientInterface
 	{
 		$qb = $this->connection->createQueryBuilder();
 		$qb
-			->select('client.id, client.secret, endpoint.redirect_uri, client.name')
+			->select('client.id as client_id, client.secret as client_secret, endpoint.redirect_uri as redirect_uri, client.name as name')
 			->from('oauth_clients', 'client')
 			->leftJoin('client', 'oauth_client_endpoints', 'endpoint', 'endpoint.client_id=client.id')
 			->where('client.id = :client_id')
@@ -41,7 +46,6 @@ class Client implements ClientInterface
 			throw new \Exception("Error Processing Request", 1);
 		}
 
-		$query = $qb->getSql();
 		return $qb->execute()->fetchArray();
 	}
 }
