@@ -34,7 +34,7 @@ class Client extends AbstractStorage implements ClientInterface
 		if ($redirectUri!=null) {
 			$qb
 				->andWhere('endpoint.redirect_uri = :redirect_uri')
-				->setParameter('redirect_uri', $redirect_uri);
+				->setParameter('redirect_uri', $redirectUri);
 		}
 		if ($clientSecret!=null) {
 			$qb
@@ -45,7 +45,6 @@ class Client extends AbstractStorage implements ClientInterface
 		if ($clientId==null || ($redirectUri==null && $clientSecret==null)) {
 			throw new \Exception("Error Processing Request", 1);
 		}
-
-		return $qb->execute()->fetchArray();
+		return $qb->execute()->fetch();
 	}
 }

@@ -31,6 +31,6 @@ class Scope extends AbstractStorage implements ScopeInterface
 			->where('scope.scope = :scope')
 			->setParameter('scope', $scope);
 
-		return $qb->execute()->fetchArray();
+		return $qb->execute()->fetch();
 	}
 }

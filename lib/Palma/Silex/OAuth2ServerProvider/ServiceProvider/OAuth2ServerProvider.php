@@ -14,15 +14,15 @@ class OAuth2ServerProvider implements ServiceProviderInterface
 	public function register (Application $app)
 	{
 		$app['oauth2.storage.client'] = $app->share(function (Application $app) {
-			return new Client($app[db]);
+			return new Client($app['db']);
 		});
 
 		$app['oauth2.storage.scope'] = $app->share(function (Application $app) {
-			return new Scope($app[db]);
+			return new Scope($app['db']);
 		});
 
 		$app['oauth2.storage.session'] = $app->share(function (Application $app) {
-			return new Session($app[db]);
+			return new Session($app['db']);
 		});
 
 		$app['oauth2.authserver'] = $app->share(function (Application $app) {
